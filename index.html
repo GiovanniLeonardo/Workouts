@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Life Fitness Workouts</title>
+  <style>
+    :root{
+      --bg:#08111d;
+      --panel:#111a2b;
+      --panel2:#172238;
+      --text:#eef4ff;
+      --muted:#94a3c3;
+      --accent:#5fd6c3;
+      --accent2:#7aa7ff;
+      --border:rgba(255,255,255,.08);
+      --shadow:0 24px 70px rgba(0,0,0,.28);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(95,214,195,.14), transparent 26%),
+        radial-gradient(circle at top right, rgba(122,167,255,.14), transparent 22%),
+        linear-gradient(180deg,#07101a 0%, #0a1322 100%);
+      min-height:100vh;
+    }
+    .wrap{max-width:1440px;margin:0 auto;padding:24px}
+    .topbar{
+      display:flex;justify-content:space-between;align-items:center;gap:16px;
+      margin-bottom:18px
+    }
+    .brand{font-size:22px;font-weight:800;letter-spacing:.2px}
+    .subtitle{color:var(--muted);font-size:13px}
+    .badge{
+      padding:10px 14px;border:1px solid var(--border);border-radius:999px;
+      background:rgba(255,255,255,.04);color:var(--muted);white-space:nowrap
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:280px minmax(0,1fr) 390px;
+      gap:18px;
+    }
+    .card{
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--border);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(12px);
+    }
+    .sidebar,.main,.right{padding:18px}
+    .section-label{
+      margin:8px 0 12px;
+      color:var(--muted);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
+    .nav-item{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:14px 14px;border-radius:16px;margin-bottom:8px;
+      border:1px solid transparent;color:var(--text)
+    }
+    .nav-item.active{
+      background:linear-gradient(90deg, rgba(95,214,195,.14), rgba(122,167,255,.12));
+      border-color:rgba(122,167,255,.22)
+    }
+    .hero{
+      display:flex;justify-content:space-between;gap:18px;align-items:flex-start;
+      margin-bottom:18px
+    }
+    h1{margin:0 0 10px;font-size:36px;line-height:1.08}
+    p{margin:0;color:var(--muted);max-width:620px;line-height:1.55}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .btn{
+      padding:12px 16px;border-radius:14px;border:1px solid var(--border);
+      background:rgba(255,255,255,.04);color:var(--text);font-weight:700
+    }
+    .btn.primary{
+      border:none;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#08111d
+    }
+    .stats{
+      display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px
+    }
+    .stat{padding:16px;border-radius:18px;background:var(--panel2);border:1px solid var(--border)}
+    .stat .n{font-size:26px;font-weight:800}
+    .stat .l{font-size:13px;color:var(--muted);margin-top:4px}
+    .workout{
+      display:flex;gap:14px;align-items:flex-start;
+      padding:16px;border-radius:18px;background:var(--panel2);border:1px solid var(--border);
+      margin-bottom:12px
+    }
+    .dot{width:12px;height:12px;border-radius:999px;background:var(--accent);margin-top:6px;flex:none}
+    .dot.blue{background:var(--accent2)}
+    .dot.gold{background:#ffd166}
+    .workout h3{margin:0 0 6px;font-size:18px}
+    .meta{color:var(--muted);font-size:13px;margin-bottom:10px}
+    .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{
+      font-size:12px;padding:7px 10px;border-radius:999px;
+      background:rgba(255,255,255,.05);border:1px solid var(--border);color:#dce6ff
+    }
+    .phone{
+      background:linear-gradient(180deg,#0e1627,#0a1020);
+      border:1px solid var(--border);
+      border-radius:34px;
+      padding:18px;
+      max-width:380px;
+      margin:0 auto;
+    }
+    .phone-top{
+      display:flex;justify-content:space-between;align-items:center;
+      color:var(--muted);font-size:13px;margin-bottom:14px
+    }
+    .phone-card{
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--border);
+      border-radius:22px;
+      padding:14px;
+      margin-bottom:12px;
+    }
+    .thumb{
+      height:110px;margin-top:10px;border-radius:16px;
+      background:linear-gradient(135deg, rgba(95,214,195,.24), rgba(122,167,255,.22));
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid rgba(255,255,255,.08);
+      color:#eefcff;font-weight:800
+    }
+    .small{color:var(--muted);font-size:12px;line-height:1.5}
+    .footer-note{margin-top:14px;color:var(--muted);font-size:12px;text-align:center}
+    @media (max-width: 1180px){
+      .grid{grid-template-columns:1fr}
+      .phone{max-width:none}
+    }
+    @media (max-width: 760px){
+      .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+      h1{font-size:30px}
+      .topbar{flex-direction:column;align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div>
+        <div class="brand">Life Fitness Workouts</div>
+        <div class="subtitle">Custom workouts • Web imports • Weekly planner</div>
+      </div>
+      <div class="badge">iPhone app + web dashboard concept</div>
+    </div>
+
+    <div class="grid">
+      <div class="card sidebar">
+        <div class="section-label">Navigation</div>
+        <div class="nav-item active"><span>Dashboard</span><span>•</span></div>
+        <div class="nav-item"><span>Workout Library</span><span>24</span></div>
+        <div class="nav-item"><span>Weekly Planner</span><span>7</span></div>
+        <div class="nav-item"><span>Import from Web</span><span>+</span></div>
+
+        <div class="section-label" style="margin-top:18px">Today</div>
+        <div class="workout" style="margin-bottom:0">
+          <div class="dot"></div>
+          <div>
+            <h3>Upper Body Strength</h3>
+            <div class="meta">Chest • Back • Shoulders</div>
+            <div class="chips">
+              <span class="chip">45 min</span>
+              <span class="chip">8 exercises</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card main">
+        <div class="hero">
+          <div>
+            <h1>Plan, save, and import workouts</h1>
+            <p>Organize all of your Life Fitness workouts by day of week, build custom routines, and save workouts from websites with images and videos.</p>
+            <div class="actions">
+              <div class="btn primary">+ New Workout</div>
+              <div class="btn">Import URL</div>
+              <div class="btn">Schedule Week</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><div class="n">24</div><div class="l">Saved workouts</div></div>
+          <div class="stat"><div class="n">7</div><div class="l">Days scheduled</div></div>
+          <div class="stat"><div class="n">12</div><div class="l">Imported workouts</div></div>
+          <div class="stat"><div class="n">5</div><div class="l">Favorites</div></div>
+        </div>
+
+        <div class="workout">
+          <div class="dot"></div>
+          <div>
+            <h3>Monday • Push Day</h3>
+            <div class="meta">Bench Press • Incline DB Press • Triceps</div>
+            <div class="chips">
+              <span class="chip">Custom</span>
+              <span class="chip">Saved</span>
+              <span class="chip">60 min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="workout">
+          <div class="dot blue"></div>
+          <div>
+            <h3>Wednesday • Back + Biceps</h3>
+            <div class="meta">Lat Pulldown • Rows • Curls</div>
+            <div class="chips">
+              <span class="chip">Imported</span>
+              <span class="chip">With video</span>
+              <span class="chip">52 min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="workout">
+          <div class="dot gold"></div>
+          <div>
+            <h3>Friday • Legs</h3>
+            <div class="meta">Squats • Leg Press • Hamstrings</div>
+            <div class="chips">
+              <span class="chip">Custom</span>
+              <span class="chip">Favorite</span>
+              <span class="chip">70 min</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card right">
+        <div class="phone">
+          <div class="phone-top">
+            <span>9:41</span>
+            <span>iPhone Preview</span>
+            <span>100%</span>
+          </div>
+
+          <div class="phone-card">
+            <h3>Import from Web</h3>
+            <div class="small">Paste a workout URL, preview the page, then save images, video links, and instructions into your library.</div>
+            <div class="thumb">Web Preview</div>
+          </div>
+
+          <div class="phone-card">
+            <h3>Tuesday • Core</h3>
+            <div class="small">Plank • Hanging Knee Raises • Cable Crunch</div>
+          </div>
+
+          <div class="phone-card">
+            <h3>Workout Detail</h3>
+            <div class="small">Exercise list, sets/reps, notes, and media gallery shown in one clean view.</div>
+          </div>
+        </div>
+        <div class="footer-note">Responsive mockup for your iPhone workout app</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
